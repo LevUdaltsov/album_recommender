@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from .views import show_song
+from rec_system.views import show_album
+
+
 
 urlpatterns = [
-    path('song/<int:song_id>/', show_song, name='show=song')
+    path('album/<int:album_id>/', show_album, name='show=song')
 ]

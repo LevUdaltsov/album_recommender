@@ -1,15 +1,16 @@
 from django.shortcuts import render
 
-from .models import Song
+from rec_system.models import Album
+from .scripts.create_db import upload_data_to_db
 
-# Create your views here.
 
-def show_song(request, song_id):
+def show_album(request, album_id):
+    upload_data_to_db()    
+    albums = Album.objects.all()
 
-    song = Song.objects.get(pk=song_id)
-
-    context = {'song':song.name,
-            'album':song.album,
-            'artist':song.artist}
+    for album in albums:
+        print(album)
+    context = {'album':album.name,
+            'artist':album.artist}
     
     return render(request, 'rec_system/page_1.html', context)

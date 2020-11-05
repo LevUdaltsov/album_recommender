@@ -14,6 +14,7 @@ class Artist(models.Model):
     def __str__(self):
         return self.name
 
+
 class Album(models.Model):
     """
     Album model that stores data about albums.
@@ -21,21 +22,13 @@ class Album(models.Model):
     """
 
     name = models.CharField(max_length=255, verbose_name='Name')
-    release_date = models.DateTimeField(default=timezone.now)
+    pub_date = models.DateField(default=None)
     artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
+    content = models.TextField(default='')
+
+    url = models.CharField(max_length=255, default=None)
+    score = models.IntegerField(default=None)
+    best_new_music = models.BooleanField(max_length=255, default=False)
 
     def __str__(self):
         return self.name
-
-class Song(models.Model):
-    """
-    Song model that stores data about songs.
-
-    """
-    name = models.CharField(max_length=255, verbose_name='Name')
-    album = models.ForeignKey(Album, on_delete=models.CASCADE)
-    artist = models.ForeignKey(Artist, on_delete=models.CASCADE)
-    length =  models.IntegerField(verbose_name='Name')
-    description = models.TextField(default='')
-
-
