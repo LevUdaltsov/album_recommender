@@ -27,6 +27,7 @@ class Album(models.Model):
     content = models.TextField(default='')
 
     url = models.CharField(max_length=255, default=None)
+    imgurl = models.CharField(max_length=255, default=None)
     score = models.IntegerField(default=None)
     best_new_music = models.BooleanField(max_length=255, default=False)
 
