@@ -9,13 +9,14 @@ from .utils import load_data, tfidf_generator
 
 def run():
     documents = load_data("./pitchfork_reviews.csv")
-    data_tfidf, tfidf_tokens = tfidf_generator(documents, 1000)
+    num_words = 1000
+    data_tfidf, tfidf_tokens = tfidf_generator(documents, num_words)
     dataset = data_tfidf.toarray()
     device = torch.device("cpu")
     
     num_epochs = 200
     batch_size = 100
-    model = Autoencoder().to(device)
+    model = Autoencoder(num_words).to(device)
     optimizer = optim.Adam(model.parameters(), lr=1e-3)
     criterion = nn.MSELoss()
 

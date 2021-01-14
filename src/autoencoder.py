@@ -12,16 +12,23 @@ from torch.autograd import Variable
 from sklearn.model_selection import train_test_split
 
 class Autoencoder(nn.Module):
-    def __init__(self):
+    def __init__(self, input_size):
         super(Autoencoder, self).__init__()
+        self.input_size = input_size
         self.encoder = nn.Sequential(
-            nn.Linear(1000, 64),
-            nn.ReLU(True), nn.Linear(64, 12), nn.ReLU(True), nn.Linear(12, 3))
+            nn.Linear(self.input_size, 256),
+            nn.ReLU(True),
+            nn.Linear(256, 64),
+            nn.ReLU(True),
+            nn.Linear(64, 12),
+            nn.ReLU(True), nn.Linear(12, 2))
         self.decoder = nn.Sequential(
-            nn.Linear(3, 12),
+            nn.Linear(2, 12),
             nn.ReLU(True),
             nn.Linear(12, 64),
-            nn.ReLU(True), nn.Linear(64, 1000), nn.Tanh())
+            nn.ReLU(True),
+            nn.Linear(64, 256),
+            nn.ReLU(True), nn.Linear(256, self.input_size), nn.Tanh())
 
     def forward(self, x):
         x = self.encoder(x)
